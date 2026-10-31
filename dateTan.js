@@ -43,7 +43,9 @@ const getDateParts = (date, localeData) => {
     const ampm = hours24 >= 12 ? "PM" : "AM";
 
     const getOrdinalSuffix = (n) =>
-        ["th", "st", "nd", "rd"][((n % 100) - 20) % 10] || "th";
+        n % 100 >= 11 && n % 100 <= 13
+            ? "th"
+            : ["th", "st", "nd", "rd"][n % 10] || "th";
 
     const getTimeZoneOffset = () => {
         const offset = -date.getTimezoneOffset();
