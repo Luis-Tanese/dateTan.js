@@ -29,4 +29,10 @@ for (let day = 1; day <= 31; day += 1) {
 }
 
 assert.deepEqual(failures, [], failures.join("\n"));
-console.log("Ordinal regression passed for days 1–31 (single and array formats; date-format control).");
+
+const frenchFirstDay = new Date(2024, 0, 1, 12, 0, 0);
+const frenchNinthDay = new Date(2024, 11, 9, 12, 0, 0);
+assert.equal(dateTan(frenchFirstDay, "Do", "fr-fr"), "1er");
+assert.equal(dateTan(frenchNinthDay, "Do", "fr-fr"), "9e");
+
+console.log("Ordinal regression passed for English days 1–31 and French date ordinals.");
