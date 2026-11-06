@@ -42,8 +42,12 @@ const getDateParts = (date, localeData) => {
     const hours12 = hours24 % 12 || 12;
     const ampm = hours24 >= 12 ? "PM" : "AM";
 
-    const getOrdinalSuffix = (n) =>
-        ["th", "st", "nd", "rd"][((n % 100) - 20) % 10] || "th";
+    // French date ordinals use "1er" for the first and "e" for later days.
+    const getOrdinalSuffix = (n) => {
+        if (localeData === locales["fr-fr"]) return n === 1 ? "er" : "e";
+        if (n % 100 >= 11 && n % 100 <= 13) return "th";
+        return ["th", "st", "nd", "rd"][n % 10] || "th";
+    };
 
     const getTimeZoneOffset = () => {
         const offset = -date.getTimezoneOffset();
